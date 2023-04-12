@@ -8,6 +8,9 @@ namespace BattleShip
 {
     public class User
     {
+        // data memberes
+
+        // methods
         public Ship? Shoot(int x, int y, Board board)
         {
             foreach (Ship ship in board.Ships)

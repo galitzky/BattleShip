@@ -14,14 +14,17 @@ namespace BattleShip
     }
     public class Ship
     {
+        // data members
         public string Name = "";
         public List<Cell> Cells = new List<Cell>();
         public bool IsAlive = true;
-        public bool IsWounded(int x, int y)
+
+        // methods
+        public bool IsWounded(int shootX, int shootY)
         {
             foreach (Cell cell in Cells)
             {
-                if(cell.X == x && cell.Y == y)
+                if(cell.X == shootX && cell.Y == shootY)
                 {
                     cell.Alive = false;
                     return true;
@@ -30,7 +33,7 @@ namespace BattleShip
             return false;
         }
 
-        public bool IsKilled(int x, int y)
+        public bool IsKilled()
         {
             bool shipKilled = false;
 

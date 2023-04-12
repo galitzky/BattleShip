@@ -4,6 +4,7 @@ public class Program
 {
     public static void Main()
     {
+        Console.WriteLine("Starting the game...");
         int maxX = 10;
         int maxY = 10;
         Game game = new Game();

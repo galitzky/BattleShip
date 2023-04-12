@@ -8,12 +8,13 @@ namespace BattleShip
 {
     public class Game
     {
-        public Board? Board = null;
-
+        // data memberes
+        
+        // methods
         public void StartGame(int x, int y)
         {
             Board board = new Board();
-            board.InitBoard(x, y);
+            //board.InitBoard(x, y);
 
             board.CreateShip("Avrora", false, 2, 3, 3);
             board.CreateShip("Varyag", true, 1, 1, 2);
@@ -23,7 +24,7 @@ namespace BattleShip
             board.CreateShip("Lenin", false, 5, 6, 4);
             board.CreateShip("Nin", true, 5, 10, 4);
 
-            board.DrawBoardWithShips();
+            board.DrawBoardWithShips(x, y);
 
             User user = new User();
             int shootX = 2;
@@ -33,7 +34,7 @@ namespace BattleShip
 
             if(ship == null)
             {
-                Console.WriteLine("You missed. {0}, {1}", shootX, shootY);
+                Console.WriteLine("You missed. Coordinates: {0}, {1}", shootX, shootY);
             }
             else
             {
@@ -41,7 +42,7 @@ namespace BattleShip
                 {
                     Console.WriteLine("Ship '{0}' was wounded", ship.Name);
                 }
-                if (ship.IsKilled(shootX, shootY) == true)
+                if (ship.IsKilled() == true)
                 {
                     Console.WriteLine("Ship '{0}' was killed", ship.Name);
                 }

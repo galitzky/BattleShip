@@ -8,15 +8,17 @@ namespace BattleShip
 {
     public class Board
     {
+        // data members
         public List<Ship> Ships = new List<Ship>();
         int X;
         int Y;
 
+        // methods
         public void InitBoard(int x, int y)
         {
             X = x;
             Y = y;
-
+            /*
             Console.Write("Initial Board");
             Console.Write("\n");
 
@@ -38,10 +40,14 @@ namespace BattleShip
                 }
                 Console.Write("\n");
             }
+            */
         }
 
-        public void DrawBoardWithShips()
+        public void DrawBoardWithShips(int x, int y)
         {
+            X = x;
+            Y = y;
+
             Console.Write("\n");
             Console.Write("Board with Ships");
             Console.Write("\n");
