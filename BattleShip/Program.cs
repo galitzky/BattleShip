@@ -9,5 +9,6 @@ public class Program
         int maxY = 10;
         Game game = new Game();
         game.StartGame(maxX, maxY);
+        game.ExecuteGame();
     }
 }

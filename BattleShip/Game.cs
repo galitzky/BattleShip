@@ -9,12 +9,13 @@ namespace BattleShip
     public class Game
     {
         // data memberes
-        
+        Board board = new Board();
+
         // methods
-        public void StartGame(int x, int y)
+        public void StartGame(int axisX, int axisY)
         {
-            Board board = new Board();
-            //board.InitBoard(x, y);
+            
+            board.InitBoard(axisX, axisY);
 
             board.CreateShip("Avrora", false, 2, 3, 3);
             board.CreateShip("Varyag", true, 1, 1, 2);
@@ -24,29 +25,48 @@ namespace BattleShip
             board.CreateShip("Lenin", false, 5, 6, 4);
             board.CreateShip("Nin", true, 5, 10, 4);
 
-            board.DrawBoardWithShips(x, y);
+            board.DrawBoardWithShips();
+        }
+        public void ExecuteGame()
+        {
 
             User user = new User();
-            int shootX = 2;
-            int shootY = 3;
 
-            Ship ship = user.Shoot(shootX, shootY, board);
+            while (true) 
+            {
+                Console.WriteLine("Enter X and Y parameters: ");
 
-            if(ship == null)
-            {
-                Console.WriteLine("You missed. Coordinates: {0}, {1}", shootX, shootY);
-            }
-            else
-            {
-                if(ship.IsWounded(shootX, shootY) == true)
+                bool isShootX = int.TryParse(Console.ReadLine(), out int shootX);
+                bool isShootY = int.TryParse(Console.ReadLine(), out int shootY);
+
+                if (!isShootX || !isShootY)
                 {
-                    Console.WriteLine("Ship '{0}' was wounded", ship.Name);
+                    Console.WriteLine("Please enter  valid X and Y parameters");
+                    continue;
                 }
-                if (ship.IsKilled() == true)
+
+                Ship ship = user.Shoot(shootX, shootY, board);
+
+                if (ship == null)
                 {
-                    Console.WriteLine("Ship '{0}' was killed", ship.Name);
+                    Console.WriteLine("You missed. Coordinates: {0}, {1}", shootX, shootY);
+                }
+                else
+                {
+                    if (ship.IsWounded(shootX, shootY) == true)
+                    {
+                        Console.WriteLine("Ship '{0}' was wounded", ship.Name);
+                    }
+                    if (ship.IsKilled() == true)
+                    {
+                        Console.WriteLine("Ship '{0}' was killed", ship.Name);
+                    }
+
+                    board.DrawBoardWithShips();
                 }
             }
+
         }
     }
+
 }

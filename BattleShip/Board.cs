@@ -10,44 +10,18 @@ namespace BattleShip
     {
         // data members
         public List<Ship> Ships = new List<Ship>();
-        int X;
-        int Y;
+        public int X;
+        public int Y;
 
         // methods
         public void InitBoard(int x, int y)
         {
             X = x;
             Y = y;
-            /*
-            Console.Write("Initial Board");
-            Console.Write("\n");
-
-            for (int i = 0; i <= X; i++)
-            {
-                Console.Write(i + "\t");
-                
-                for (int j = 1; j <= Y; j++)
-                {
-                    if (i > 0)
-                    {
-                        Console.Write("{0},{1} {2}", i, j, '\t');
-                        //Console.Write(".{0}", '\t');
-                    }
-                    else
-                    {
-                        Console.Write("{0} {1}", j, '\t');
-                    }
-                }
-                Console.Write("\n");
-            }
-            */
         }
 
-        public void DrawBoardWithShips(int x, int y)
+        public void DrawBoardWithShips()
         {
-            X = x;
-            Y = y;
-
             Console.Write("\n");
             Console.Write("Board with Ships");
             Console.Write("\n");
@@ -72,14 +46,22 @@ namespace BattleShip
 
                                     if(index >= 0)
                                     {
-                                        if(index >= ship.Name.Length)
+                                        if(cell.Alive == false)
                                         {
-                                            Console.Write("{0} {1}", "*", '\t');
+                                            Console.Write("{0} {1}", "@", '\t');
                                         }
                                         else
                                         {
-                                            Console.Write("{0} {1}", ship.Name[index], '\t');
+                                            if (index >= ship.Name.Length)
+                                            {
+                                                Console.Write("{0} {1}", "*", '\t');
+                                            }
+                                            else
+                                            {
+                                                Console.Write("{0} {1}", ship.Name[index], '\t');
+                                            }
                                         }
+                                        
                                     }
 
                                     found = true;

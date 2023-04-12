@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleShip
 {
-    public class Cell
-    {
-        public int X;
-        public int Y;
-        public bool Alive = true;
-    }
+   
     public class Ship
     {
         // data members
