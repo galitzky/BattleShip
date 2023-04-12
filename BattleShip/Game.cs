@@ -43,7 +43,7 @@ namespace BattleShip
                 }
                 if (ship.IsKilled(shootX, shootY) == true)
                 {
-                    Console.WriteLine("Ship was killed");
+                    Console.WriteLine("Ship '{0}' was killed", ship.Name);
                 }
             }
         }
