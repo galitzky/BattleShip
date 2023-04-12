@@ -33,13 +33,13 @@ namespace BattleShip
 
             if(ship == null)
             {
-                Console.WriteLine("You missed");
+                Console.WriteLine("You missed. {0}, {1}", shootX, shootY);
             }
             else
             {
                 if(ship.IsWounded(shootX, shootY) == true)
                 {
-                    Console.WriteLine("Ship was wounded");
+                    Console.WriteLine("Ship '{0}' was wounded", ship.Name);
                 }
                 if (ship.IsKilled(shootX, shootY) == true)
                 {
