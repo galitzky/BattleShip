@@ -32,15 +32,15 @@ namespace BattleShip
         {
             bool shipKilled = false;
 
-            int killedCells = 0;
+            int killedCells = Cells.Where(currentCell => currentCell.Alive == false).Count();
 
-            foreach (Cell cell in Cells)
-            {
-                if (cell.Alive == false)
-                {
-                    killedCells++;
-                }
-            }
+            //foreach (Cell cell in Cells)
+            //{
+            //    if (cell.Alive == false)
+            //    {
+            //        killedCells++;
+            //    }
+            //}
 
             if (killedCells == Cells.Count)
             {
