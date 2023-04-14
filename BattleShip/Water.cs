@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleShip
 {
-    public class Watern /////////
+    public class Water
     {
         // data members
         public List<Cell> Cells = new List<Cell>();

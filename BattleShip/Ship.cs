@@ -17,15 +17,14 @@ namespace BattleShip
         // methods
         public bool IsWounded(int shootX, int shootY)
         {
-            foreach (Cell cell in Cells)
+            Cell? cell = Cells.FirstOrDefault(currentCell => currentCell.X == shootX && currentCell.Y == shootY);
+
+            if (cell == null)
             {
-                if(cell.X == shootX && cell.Y == shootY)
-                {
-                    cell.Alive = false;
-                    return true;
-                }
+                return false;
             }
-            return false;
+
+            return true;
         }
 
         public bool IsKilled()

@@ -47,6 +47,9 @@ namespace BattleShip
 
                 Ship ship = user.Shoot(shootX, shootY, board);
 
+                board.water.IsWaterWounded(shootX, shootY);
+
+
                 if (ship == null)
                 {
                     Console.WriteLine("You missed. Coordinates: {0}, {1}", shootX, shootY);

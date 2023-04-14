@@ -10,6 +10,7 @@ namespace BattleShip
     {
         // data members
         public List<Ship> Ships = new List<Ship>();
+        public Water water = new Water();
         public int X;
         public int Y;
 
@@ -72,9 +73,35 @@ namespace BattleShip
 
                         if(found == false)
                         {
-                            Console.Write(".{0}", '\t');
+                            bool cellInWaterFound = false;
+
+                            foreach (Cell cellInWater in water.Cells)
+                            {
+                                if(cellInWater.X == i && cellInWater.Y == j)
+                                {
+                                    cellInWaterFound = true;
+
+                                    if (cellInWater.Alive == false)
+                                    {
+                                        Console.Write("~{0}", '\t');
+                                    }
+                                    else
+                                    {
+                                        Console.Write(".{0}", '\t');
+                                    }
+                                }
+                            }
+                            if(cellInWaterFound == false)
+                            {
+                                Cell cell = new Cell();
+                                cell.X = i;
+                                cell.Y = j;
+                                water.Cells.Add(cell);
+                                Console.Write(".{0}", '\t');
+                            }
+                           
                         }
-                        
+      
                     }
                     else
                     {
