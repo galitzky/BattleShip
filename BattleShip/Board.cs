@@ -24,7 +24,7 @@ namespace BattleShip
         public void DrawBoardWithShips()
         {
             Console.Write("\n");
-            Console.Write("Board with Ships");
+            //Console.Write("Board with Ships");
             Console.Write("\n");
 
             for (int i = 0; i <= X; i++)
