@@ -11,5 +11,14 @@ namespace BattleShip
         public int X;
         public int Y;
         public bool Alive = true;
+
+        public Cell() { }
+
+        public Cell(int x, int y)
+        {
+            X = x;
+            Y = y;
+            Alive = true;
+        }
     }
 }

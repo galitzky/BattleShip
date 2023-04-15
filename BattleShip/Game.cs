@@ -9,12 +9,11 @@ namespace BattleShip
     public class Game
     {
         // data memberes
-        Board board = new Board();
+        Board board = new();
 
         // methods
         public void StartGame(int axisX, int axisY)
         {
-            
             board.InitBoard(axisX, axisY);
 
             board.CreateShip("Avrora", false, 2, 3, 3);
@@ -29,14 +28,15 @@ namespace BattleShip
         }
         public void ExecuteGame()
         {
-
             User user = new User();
 
             while (true) 
             {
-                Console.WriteLine("Enter X and Y parameters: ");
+                Console.WriteLine("Enter coordinate X: ");
 
                 bool isShootX = int.TryParse(Console.ReadLine(), out int shootX);
+
+                Console.WriteLine("Enter coordinate Y: ");
                 bool isShootY = int.TryParse(Console.ReadLine(), out int shootY);
 
                 if (!isShootX || !isShootY)
@@ -45,10 +45,9 @@ namespace BattleShip
                     continue;
                 }
 
-                Ship ship = user.Shoot(shootX, shootY, board);
+                Ship? ship = user.Shoot(shootX, shootY, board);
 
-                board.water.IsWaterWounded(shootX, shootY);
-
+                board.Water.IsWaterWounded(shootX, shootY);
 
                 if (ship == null)
                 {
@@ -64,11 +63,10 @@ namespace BattleShip
                     {
                         Console.WriteLine("Ship '{0}' was killed", ship.Name);
                     }
-
-                    board.DrawBoardWithShips();
                 }
-            }
 
+                board.DrawBoardWithShips();
+            }
         }
     }
 

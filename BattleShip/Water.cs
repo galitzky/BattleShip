@@ -19,6 +19,7 @@ namespace BattleShip
             {
                 return false;
             }
+            cell.Alive = false;
             return true;
         }
     }

@@ -12,7 +12,7 @@ namespace BattleShip
         // data members
         public string Name = "";
         public List<Cell> Cells = new List<Cell>();
-        public bool IsAlive = true;
+        public bool Alive = true;
 
         // methods
         public bool IsWounded(int shootX, int shootY)
@@ -24,6 +24,8 @@ namespace BattleShip
                 return false;
             }
 
+            cell.Alive = false;
+
             return true;
         }
 
@@ -33,17 +35,9 @@ namespace BattleShip
 
             int killedCells = Cells.Where(currentCell => currentCell.Alive == false).Count();
 
-            //foreach (Cell cell in Cells)
-            //{
-            //    if (cell.Alive == false)
-            //    {
-            //        killedCells++;
-            //    }
-            //}
-
             if (killedCells == Cells.Count)
             {
-                IsAlive = false;
+                Alive = false;
                 shipKilled = true;
             }
 

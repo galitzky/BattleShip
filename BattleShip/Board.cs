@@ -10,7 +10,7 @@ namespace BattleShip
     {
         // data members
         public List<Ship> Ships = new List<Ship>();
-        public Water water = new Water();
+        public Water Water = new Water();
         public int X;
         public int Y;
 
@@ -49,7 +49,14 @@ namespace BattleShip
                                     {
                                         if(cell.Alive == false)
                                         {
-                                            Console.Write("{0} {1}", "@", '\t');
+                                            if(ship.Alive == false)
+                                            {
+                                                Console.Write("{0} {1}", "^", '\t');
+                                            }
+                                            else
+                                            {
+                                                Console.Write("{0} {1}", "@", '\t');
+                                            }
                                         }
                                         else
                                         {
@@ -62,7 +69,6 @@ namespace BattleShip
                                                 Console.Write("{0} {1}", ship.Name[index], '\t');
                                             }
                                         }
-                                        
                                     }
 
                                     found = true;
@@ -73,35 +79,23 @@ namespace BattleShip
 
                         if(found == false)
                         {
-                            bool cellInWaterFound = false;
+                            Cell? waterCell = Water.Cells.FirstOrDefault(obj => obj.X == i && obj.Y == j);
 
-                            foreach (Cell cellInWater in water.Cells)
+                            if(waterCell == null)
                             {
-                                if(cellInWater.X == i && cellInWater.Y == j)
-                                {
-                                    cellInWaterFound = true;
+                                waterCell = new Cell(i, j);
+                                Water.Cells.Add(waterCell);
+                            }
 
-                                    if (cellInWater.Alive == false)
-                                    {
-                                        Console.Write("~{0}", '\t');
-                                    }
-                                    else
-                                    {
-                                        Console.Write(".{0}", '\t');
-                                    }
-                                }
-                            }
-                            if(cellInWaterFound == false)
+                            if(waterCell.Alive == false)
                             {
-                                Cell cell = new Cell();
-                                cell.X = i;
-                                cell.Y = j;
-                                water.Cells.Add(cell);
-                                Console.Write(".{0}", '\t');
+                                Console.Write("{0} {1}", "~", '\t');
                             }
-                           
+                            else
+                            {
+                                Console.Write("{0} {1}", ".", '\t');
+                            }
                         }
-      
                     }
                     else
                     {
