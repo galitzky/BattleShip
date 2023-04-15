@@ -60,13 +60,13 @@ namespace BattleShip
                                         }
                                         else
                                         {
-                                            if (index >= ship.Name.Length)
+                                            if (index >= ship.Name?.Length)
                                             {
                                                 Console.Write("{0} {1}", "*", '\t');
                                             }
                                             else
                                             {
-                                                Console.Write("{0} {1}", ship.Name[index], '\t');
+                                                Console.Write("{0} {1}", ship.Name?[index], '\t');
                                             }
                                         }
                                     }
@@ -106,7 +106,7 @@ namespace BattleShip
             }
          }
 
-        public void CreateShip(string name, bool isVertical, int x, int y, int cells)
+        public void CreateShip(string? name, bool isVertical, int x, int y, int cells)
         {
             Ship ship = new Ship();
             ship.Name = name;

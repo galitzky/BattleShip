@@ -10,7 +10,7 @@ namespace BattleShip
     public class Ship
     {
         // data members
-        public string Name = "";
+        public string? Name = "";
         public List<Cell> Cells = new List<Cell>();
         public bool Alive = true;
 

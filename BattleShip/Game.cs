@@ -15,14 +15,49 @@ namespace BattleShip
         public void StartGame(int axisX, int axisY)
         {
             board.InitBoard(axisX, axisY);
+            for(int i = 0; i < 2; i++)
+            {
+                string? name = "";
+                bool isVertical = false;
+                int x = 0;
+                int y = 0;
+                int cells = 0;
 
-            board.CreateShip("Avrora", false, 2, 3, 3);
-            board.CreateShip("Varyag", true, 1, 1, 2);
-            board.CreateShip("Missouri", true, 5, 5, 4);
-            board.CreateShip("Argo", true, 7, 7, 2);
-            board.CreateShip("Bismarck", true, 7, 1, 4);
-            board.CreateShip("Lenin", false, 5, 6, 4);
-            board.CreateShip("Nin", true, 5, 10, 4);
+                Console.WriteLine("Please provide Ship name:");
+                name = Console.ReadLine();
+
+                Console.WriteLine("Please select the ship orientation, for horizontal press '1', for vertical press '2':");
+                string? pos = Console.ReadLine();
+
+                if(pos == "1")
+                {
+                    isVertical = true;
+                }
+                Console.WriteLine("Please provide start coordination X:");
+                bool parsedX = int.TryParse(Console.ReadLine(), out x);
+                Console.WriteLine("Please provide start coordination Y:");
+                bool parsedY = int.TryParse(Console.ReadLine(), out y);
+                Console.WriteLine("Please provide ships length:");
+                bool parsedCells = int.TryParse(Console.ReadLine(), out cells);
+                if(parsedX == false || parsedY == false || parsedCells == false)
+                {
+                    Console.WriteLine("Wrong X/Y/Cells parameters!");
+                    continue;
+                }
+                if (cells > 4)
+                {
+                    Console.WriteLine("The ship is too long!");
+                    continue;
+                }
+                board.CreateShip(name, isVertical, x, y, cells);
+            }
+            //board.CreateShip("Avrora", false, 2, 3, 3);
+            //board.CreateShip("Varyag", true, 1, 1, 2);
+            //board.CreateShip("Missouri", true, 5, 5, 4);
+            //board.CreateShip("Argo", true, 7, 7, 2);
+            //board.CreateShip("Bismarck", true, 7, 1, 4);
+            //board.CreateShip("Lenin", false, 5, 6, 4);
+            //board.CreateShip("Nin", true, 5, 10, 4);
 
             board.DrawBoardWithShips();
         }
