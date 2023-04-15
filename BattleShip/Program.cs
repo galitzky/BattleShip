@@ -8,7 +8,8 @@ public class Program
         int maxX = 10;
         int maxY = 10;
         Game game = new Game();
-        game.StartGame(maxX, maxY);
+        game.StartGame(maxX, maxY, game.board1);
+        game.StartGame(maxX, maxY, game.board2);
         game.ExecuteGame();
     }
 }

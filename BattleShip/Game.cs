@@ -9,13 +9,15 @@ namespace BattleShip
     public class Game
     {
         // data memberes
-        Board board = new();
+        public Board board1 = new();
+        public Board board2 = new();
 
         // methods
-        public void StartGame(int axisX, int axisY)
+        public void StartGame(int axisX, int axisY, Board board)
         {
             board.InitBoard(axisX, axisY);
-            for(int i = 0; i < 2; i++)
+            
+            for (int i = 0; i < 2; i++)
             {
                 string? name = "";
                 bool isVertical = false;
@@ -63,7 +65,12 @@ namespace BattleShip
         }
         public void ExecuteGame()
         {
-            User user = new User();
+            User user1 = new User();
+            User user2 = new User();
+
+            bool isUser1Active = true;
+
+            User? activeUser = null;
 
             while (true) 
             {
@@ -80,13 +87,30 @@ namespace BattleShip
                     continue;
                 }
 
-                Ship? ship = user.Shoot(shootX, shootY, board);
+                if(isUser1Active == true)
+                {
+                    activeUser = user1;
+                }
+                else
+                {
+                    activeUser = user2;
+                }
 
-                board.Water.IsWaterWounded(shootX, shootY);
+                Ship? ship = activeUser.Shoot(shootX, shootY, board1);
+
+                if (isUser1Active == true)
+                {
+                    board1.Water.IsWaterWounded(shootX, shootY);
+                }
+                else
+                {
+                    board2.Water.IsWaterWounded(shootX, shootY);
+                }
 
                 if (ship == null)
                 {
                     Console.WriteLine("You missed. Coordinates: {0}, {1}", shootX, shootY);
+                    isUser1Active = !isUser1Active;
                 }
                 else
                 {
@@ -100,7 +124,8 @@ namespace BattleShip
                     }
                 }
 
-                board.DrawBoardWithShips();
+                board1.DrawBoardWithShips();
+                board2.DrawBoardWithShips();
             }
         }
     }
