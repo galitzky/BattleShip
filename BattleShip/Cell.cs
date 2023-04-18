@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace BattleShip
 {
+    public enum CellStatus
+    {
+        Alive,
+        WaterHit,
+        ShipHit,
+        ShipKilled,
+    }
     public class Cell
     {
         public int X;
         public int Y;
-        public bool Alive = true;
+        public CellStatus Status = CellStatus.Alive;
 
         public Cell() { }
 
@@ -18,7 +25,7 @@ namespace BattleShip
         {
             X = x;
             Y = y;
-            Alive = true;
+            Status = CellStatus.Alive;
         }
     }
 }

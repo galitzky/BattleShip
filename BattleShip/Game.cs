@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,125 +10,102 @@ namespace BattleShip
     public class Game
     {
         // data memberes
-        public Board board1 = new();
-        public Board board2 = new();
+        User? User1 = null;
+        User? User2 = null;
+
+        bool debugMode = true;
 
         // methods
-        public void StartGame(int axisX, int axisY, Board board)
+        public void StartGame(int axisX, int axisY)
         {
-            board.InitBoard(axisX, axisY);
-            
-            for (int i = 0; i < 2; i++)
+            int ships = 2;
+            string? name1 = "";
+            string? name2 = "";
+
+            if (debugMode == true)
             {
-                string? name = "";
-                bool isVertical = false;
-                int x = 0;
-                int y = 0;
-                int cells = 0;
-
-                Console.WriteLine("Please provide Ship name:");
-                name = Console.ReadLine();
-
-                Console.WriteLine("Please select the ship orientation, for horizontal press '1', for vertical press '2':");
-                string? pos = Console.ReadLine();
-
-                if(pos == "1")
-                {
-                    isVertical = true;
-                }
-                Console.WriteLine("Please provide start coordination X:");
-                bool parsedX = int.TryParse(Console.ReadLine(), out x);
-                Console.WriteLine("Please provide start coordination Y:");
-                bool parsedY = int.TryParse(Console.ReadLine(), out y);
-                Console.WriteLine("Please provide ships length:");
-                bool parsedCells = int.TryParse(Console.ReadLine(), out cells);
-                if(parsedX == false || parsedY == false || parsedCells == false)
-                {
-                    Console.WriteLine("Wrong X/Y/Cells parameters!");
-                    continue;
-                }
-                if (cells > 4)
-                {
-                    Console.WriteLine("The ship is too long!");
-                    continue;
-                }
-                board.CreateShip(name, isVertical, x, y, cells);
+                name1 = "Shon";
+                name2 = "Daniel";
             }
-            //board.CreateShip("Avrora", false, 2, 3, 3);
-            //board.CreateShip("Varyag", true, 1, 1, 2);
-            //board.CreateShip("Missouri", true, 5, 5, 4);
-            //board.CreateShip("Argo", true, 7, 7, 2);
-            //board.CreateShip("Bismarck", true, 7, 1, 4);
-            //board.CreateShip("Lenin", false, 5, 6, 4);
-            //board.CreateShip("Nin", true, 5, 10, 4);
 
-            board.DrawBoardWithShips();
+            if(debugMode == false)
+            {
+                Console.WriteLine("Who is player 1?");
+                name1 = Console.ReadLine();
+            }
+
+            User1 = new User(name1);
+            User1.InitBoards(axisX, axisY);
+            User1.CreateShips(ships, debugMode);
+            User1.ActiveBoard.DrawBoardWithShips("Capitan " + User1.Name + " it's your Ships");
+            User1.EnemyBoard.DrawBoardWithShips("Battle field");
+
+            if (debugMode == false)
+            {
+                Console.WriteLine("Who is player 2?");
+                name2 = Console.ReadLine();
+            }
+            
+            User2 = new User(name2);
+            User2.InitBoards(axisX, axisY);
+            User2.CreateShips(ships, debugMode);
+            User2.ActiveBoard.DrawBoardWithShips("Capitan " + User2.Name + " it's your Ships");
+            User2.EnemyBoard.DrawBoardWithShips("Battle field");
         }
         public void ExecuteGame()
         {
-            User user1 = new User();
-            User user2 = new User();
+            User? activeUser = User1;
+            User? notActiveUser = User2;
 
-            bool isUser1Active = true;
-
-            User? activeUser = null;
+            Console.WriteLine("Admirals are you ready?");
+            Console.ReadKey();
+            Console.Clear();
 
             while (true) 
             {
-                Console.WriteLine("Enter coordinate X: ");
+                Console.WriteLine("Admiral {0} now it's your turn!", activeUser?.Name);
+
+                activeUser?.ActiveBoard.DrawBoardWithShips(string.Format("{0} Board", activeUser?.Name));
+                activeUser?.EnemyBoard.DrawBoardWithShips(string.Format("{0} Board", notActiveUser?.Name));
+
+                Console.WriteLine("Enter shoot coordinate X: ");
 
                 bool isShootX = int.TryParse(Console.ReadLine(), out int shootX);
 
-                Console.WriteLine("Enter coordinate Y: ");
+                Console.WriteLine("Enter shoot coordinate Y: ");
                 bool isShootY = int.TryParse(Console.ReadLine(), out int shootY);
 
                 if (!isShootX || !isShootY)
                 {
-                    Console.WriteLine("Please enter  valid X and Y parameters");
+                    Console.WriteLine("Next time please enter a valid X and Y parameters");
+                    notActiveUser = activeUser;
+                    activeUser = activeUser == User1 ? User2 : User1;
                     continue;
                 }
 
-                if(isUser1Active == true)
-                {
-                    activeUser = user1;
-                }
-                else
-                {
-                    activeUser = user2;
-                }
-
-                Ship? ship = activeUser.Shoot(shootX, shootY, board1);
-
-                if (isUser1Active == true)
-                {
-                    board1.Water.IsWaterWounded(shootX, shootY);
-                }
-                else
-                {
-                    board2.Water.IsWaterWounded(shootX, shootY);
-                }
+                Ship? ship = activeUser?.Shoot(shootX, shootY, notActiveUser, activeUser);
 
                 if (ship == null)
                 {
-                    Console.WriteLine("You missed. Coordinates: {0}, {1}", shootX, shootY);
-                    isUser1Active = !isUser1Active;
+                    Console.WriteLine("Admiral {0}, you missed :(. Coordinates: {1}, {2}", activeUser?.Name, shootX, shootY);
+                    Console.WriteLine("Your status Admiral --------------------------------------------------------------");
+                    activeUser?.EnemyBoard.DrawBoardWithShips(string.Format("{0} Board", notActiveUser?.Name));
+                    Console.ReadKey();
+                    Console.Clear();
+
+                    notActiveUser = activeUser;
+                    activeUser = activeUser == User1 ? User2 : User1;
                 }
                 else
                 {
-                    if (ship.IsWounded(shootX, shootY) == true)
-                    {
-                        Console.WriteLine("Ship '{0}' was wounded", ship.Name);
-                    }
+                    Console.WriteLine("Good shoot Admiral! Enemy ship '{0}' was wounded", ship.Name);
+
                     if (ship.IsKilled() == true)
                     {
-                        Console.WriteLine("Ship '{0}' was killed", ship.Name);
+                        Console.WriteLine("Great Admiral! Enemy ship '{0}' was killed", ship.Name);
                     }
                 }
-
-                board1.DrawBoardWithShips();
-                board2.DrawBoardWithShips();
             }
         }
     }
-
 }

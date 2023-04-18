@@ -9,18 +9,13 @@ namespace BattleShip
     public class Water
     {
         // data members
-        public List<Cell> Cells = new List<Cell>();
+        public Cell? Cell = null;
+
+        public Water(int x, int y)
+        {
+            Cell = new Cell(x, y);
+        }
 
         // methods
-        public bool IsWaterWounded(int shootX, int shootY)
-        {
-            Cell? cell = Cells.FirstOrDefault(cell => cell.X == shootX && cell.Y == shootY);
-            if (cell == null)
-            {
-                return false;
-            }
-            cell.Alive = false;
-            return true;
-        }
-    }
+     }
 }

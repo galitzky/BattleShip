@@ -15,30 +15,18 @@ namespace BattleShip
         public bool Alive = true;
 
         // methods
-        public bool IsWounded(int shootX, int shootY)
-        {
-            Cell? cell = Cells.FirstOrDefault(currentCell => currentCell.X == shootX && currentCell.Y == shootY);
-
-            if (cell == null)
-            {
-                return false;
-            }
-
-            cell.Alive = false;
-
-            return true;
-        }
-
+       
         public bool IsKilled()
         {
             bool shipKilled = false;
 
-            int killedCells = Cells.Where(currentCell => currentCell.Alive == false).Count();
+            int killedCells = Cells.Where(currentCell => currentCell.Status == CellStatus.ShipHit).Count();
 
             if (killedCells == Cells.Count)
             {
                 Alive = false;
                 shipKilled = true;
+                Cells = Cells.Select(cell => { cell.Status = CellStatus.ShipKilled; return cell; }).ToList();
             }
 
             return shipKilled;
