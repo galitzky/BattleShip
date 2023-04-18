@@ -101,7 +101,7 @@ namespace BattleShip
                             }
                             else if (waterCell.Cell?.Status == CellStatus.ShipKilled)
                             {
-                                Console.Write("{0} {1}", "-", '\t');
+                                Console.Write("{0} {1}", "--", '\t');
                             }
                             else
                             {

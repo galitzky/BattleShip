@@ -65,8 +65,8 @@ namespace BattleShip
             {
                 Console.WriteLine("Admiral {0} now it's your turn!", activeUser?.Name);
 
-                activeUser?.ActiveBoard.DrawBoardWithShips(string.Format("{0} Board", activeUser?.Name));
-                activeUser?.EnemyBoard.DrawBoardWithShips(string.Format("{0} Board", notActiveUser?.Name));
+                activeUser?.ActiveBoard.DrawBoardWithShips(string.Format("Our fleet. Commander Admiral {0}", activeUser?.Name));
+                activeUser?.EnemyBoard.DrawBoardWithShips(string.Format("Enemy's fleet. Commander Admiral {0}", notActiveUser?.Name));
 
                 Console.WriteLine("Enter shoot coordinate X: ");
 

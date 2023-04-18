@@ -86,7 +86,7 @@ namespace BattleShip
         {
             Ship? enemyShip = shootTarget.ActiveBoard.Ships.FirstOrDefault(ship => ship.Cells.FirstOrDefault(cell => cell.X == x && cell.Y == y) != null);
 
-            if (enemyShip != null)
+            if (enemyShip != null) // The ship was injured or killed
             {
                 Cell? enemyCell = enemyShip?.Cells.FirstOrDefault(cell => cell.X == x && cell.Y == y);
 
@@ -95,17 +95,37 @@ namespace BattleShip
                     enemyCell.Status = CellStatus.ShipHit;
                 }
 
-                Water? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell.Cell?.X == x && waterCell.Cell?.Y == y);
+                bool isShipKilled = enemyShip.IsKilled();
 
-                if (initiatorWaterCell != null)
+                if(isShipKilled == false)
                 {
-                    if(initiatorWaterCell.Cell != null)
+                    Water? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell.Cell?.X == x && waterCell.Cell?.Y == y);
+
+                    if (initiatorWaterCell != null)
                     {
-                        initiatorWaterCell.Cell.Status = CellStatus.ShipHit;
+                        if (initiatorWaterCell.Cell != null)
+                        {
+                            initiatorWaterCell.Cell.Status = CellStatus.ShipHit;
+                        }
+                    }
+                }
+                else // if ship was killed set all water cells as killed in the Shooter's Enemy board
+                {
+                    foreach (Cell cell in enemyShip.Cells)
+                    {
+                        Water? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell?.Cell?.X == cell.X && waterCell?.Cell?.Y == cell.Y);
+
+                        if (initiatorWaterCell != null)
+                        {
+                            if (initiatorWaterCell.Cell != null)
+                            {
+                                initiatorWaterCell.Cell.Status = CellStatus.ShipKilled;
+                            }
+                        }
                     }
                 }
             }
-            else
+            else // The shot did not hit the ship
             {
                 Water? targerWaterCell = shootTarget.ActiveBoard.Water.FirstOrDefault(waterCell => waterCell.Cell?.X == x && waterCell.Cell?.Y == y);
 

@@ -20,7 +20,7 @@ namespace BattleShip
         {
             bool shipKilled = false;
 
-            int killedCells = Cells.Where(currentCell => currentCell.Status == CellStatus.ShipHit).Count();
+            int killedCells = Cells.Where(currentCell => (currentCell.Status == CellStatus.ShipHit || currentCell.Status == CellStatus.ShipKilled)).Count();
 
             if (killedCells == Cells.Count)
             {
