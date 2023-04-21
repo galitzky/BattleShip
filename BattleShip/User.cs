@@ -15,6 +15,8 @@ namespace BattleShip
         public Board ActiveBoard = new Board();
         public Board EnemyBoard = new Board();
 
+        public Statistics Statistics = new Statistics();
+
         public User(string name)
         {
             Name = name;
@@ -84,6 +86,8 @@ namespace BattleShip
         // methods
         public Ship? Shoot(int x, int y, User shootTarget, User shootInitiator)
         {
+            shootInitiator.Statistics.TotalShots++;
+
             Ship? enemyShip = shootTarget.ActiveBoard.Ships.FirstOrDefault(ship => ship.Cells.FirstOrDefault(cell => cell.X == x && cell.Y == y) != null);
 
             if (enemyShip != null) // The ship was injured or killed
@@ -99,6 +103,9 @@ namespace BattleShip
 
                 if(isShipKilled == false)
                 {
+                    shootInitiator.Statistics.InjuredEnemyDecs++;
+                    shootTarget.Statistics.InjuredMyDecs++;
+
                     Water? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell.Cell?.X == x && waterCell.Cell?.Y == y);
 
                     if (initiatorWaterCell != null)
@@ -111,6 +118,12 @@ namespace BattleShip
                 }
                 else // if ship was killed set all water cells as killed in the Shooter's Enemy board
                 {
+                    shootInitiator.Statistics.InjuredEnemyDecs++;
+                    shootInitiator.Statistics.KilledEnemyShips++;
+
+                    shootTarget.Statistics.InjuredMyDecs++;
+                    shootTarget.Statistics.KilledMyShips++;
+
                     foreach (Cell cell in enemyShip.Cells)
                     {
                         Water? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell?.Cell?.X == cell.X && waterCell?.Cell?.Y == cell.Y);
@@ -127,6 +140,8 @@ namespace BattleShip
             }
             else // The shot did not hit the ship
             {
+                shootInitiator.Statistics.MissedShots++;
+
                 Water? targerWaterCell = shootTarget.ActiveBoard.Water.FirstOrDefault(waterCell => waterCell.Cell?.X == x && waterCell.Cell?.Y == y);
 
                 if (targerWaterCell != null)

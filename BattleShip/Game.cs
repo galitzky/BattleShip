@@ -83,13 +83,14 @@ namespace BattleShip
                     continue;
                 }
 
-                Ship? ship = activeUser?.Shoot(shootX, shootY, notActiveUser, activeUser);
+                Ship? ship = activeUser?.Shoot(shootY, shootX, notActiveUser, activeUser);
 
                 if (ship == null)
                 {
                     Console.WriteLine("Admiral {0}, you missed :(. Coordinates: {1}, {2}", activeUser?.Name, shootX, shootY);
                     Console.WriteLine("Your status Admiral --------------------------------------------------------------");
                     activeUser?.EnemyBoard.DrawBoardWithShips(string.Format("{0} Board", notActiveUser?.Name));
+                    activeUser?.Statistics.Show();
                     Console.ReadKey();
                     Console.Clear();
 

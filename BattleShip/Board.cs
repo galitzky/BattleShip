@@ -15,6 +15,11 @@ namespace BattleShip
         public int X;
         public int Y;
 
+        public string Injured = "Injur";
+        public string Sanked = "Sank";
+        public string Missed = "Missed";
+        public string Waves = "~";
+
         // methods
         public void InitBoard(int x, int y)
         {
@@ -29,7 +34,14 @@ namespace BattleShip
             
             for (int i = 0; i <= X; i++)
             {
-                Console.Write(i + "\t");
+                if(i == 0)
+                {
+                    Console.Write("" + "\t");
+                }
+                else
+                {
+                    Console.Write(i + "\t");
+                }
 
                 for (int j = 1; j <= Y; j++)
                 {
@@ -37,49 +49,45 @@ namespace BattleShip
                     {
                         bool found = false;
 
-                        //Ship? ship1 = Ships.FirstOrDefault(ship => ship.Cells.FirstOrDefault(cell => cell.X == i && cell.Y == j) != null);
-                        //Cell? cell1 = ship1?.Cells.FirstOrDefault(cell => (cell.X == i && cell.Y == j) == true);
+                        Ship? ship = Ships.FirstOrDefault(ship => ship.Cells.FirstOrDefault(cell => cell.X == i && cell.Y == j) != null);
+                        Cell? cell = ship?.Cells.FirstOrDefault(cell => (cell.X == i && cell.Y == j) == true);
 
-                        foreach (Ship ship in Ships)
+                        if(ship != null)
                         {
-                            foreach (Cell cell in ship.Cells)
+                            if (cell != null)
                             {
-                                if (cell.X == i && cell.Y == j)
-                                {
-                                    int index = ship.Cells.IndexOf(cell); 
+                                int index = ship.Cells.IndexOf(cell);
 
-                                    if(index >= 0)
+                                if (index >= 0)
+                                {
+                                    if (cell.Status == CellStatus.ShipHit || cell.Status == CellStatus.ShipKilled)
                                     {
-                                        if(cell.Status == CellStatus.ShipHit)
+                                        if (ship.Alive == false)
                                         {
-                                            if(ship.Alive == false)
-                                            {
-                                                Console.Write("{0} {1}", "^", '\t');
-                                            }
-                                            else
-                                            {
-                                                Console.Write("{0} {1}", "@", '\t');
-                                            }
+                                            Console.Write("{0} {1}", Sanked, '\t');
                                         }
                                         else
                                         {
-                                            if (index >= ship.Name?.Length)
-                                            {
-                                                Console.Write("{0} {1}", "*", '\t');
-                                            }
-                                            else
-                                            {
-                                                Console.Write("{0} {1}", ship.Name?[index], '\t');
-                                            }
+                                            Console.Write("{0} {1}", Injured, '\t');
                                         }
                                     }
-
-                                    found = true;
-                                    break;
+                                    else
+                                    {
+                                        if (index >= ship.Name?.Length)
+                                        {
+                                            Console.Write("{0} {1}", "*", '\t');
+                                        }
+                                        else
+                                        {
+                                            Console.Write("{0} {1}", ship.Name?[index], '\t');
+                                        }
+                                    }
                                 }
+
+                                found = true;
                             }
                         }
-
+                       
                         if(found == false)
                         {
                             Water? waterCell = Water.FirstOrDefault(obj => obj.Cell?.X == i && obj.Cell?.Y == j);
@@ -92,20 +100,20 @@ namespace BattleShip
 
                             if(waterCell.Cell?.Status == CellStatus.WaterHit)
                             {
-                                Console.Write("{0} {1}", "~", '\t');
+                                Console.Write("{0} {1}", Missed, '\t');
                             }
 
                             else if (waterCell.Cell?.Status == CellStatus.ShipHit)
                             {
-                                Console.Write("{0} {1}", "!", '\t');
+                                Console.Write("{0} {1}", Injured, '\t');
                             }
                             else if (waterCell.Cell?.Status == CellStatus.ShipKilled)
                             {
-                                Console.Write("{0} {1}", "--", '\t');
+                                Console.Write("{0} {1}", Sanked, '\t');
                             }
                             else
                             {
-                                Console.Write("{0} {1}", ".", '\t');
+                                Console.Write("{0} {1}", Waves, '\t');
                             }
                         }
                     }
@@ -114,6 +122,7 @@ namespace BattleShip
                         Console.Write("{0} {1}", j, '\t');
                     }
                 }
+
                 Console.Write("\n");
             }
          }
