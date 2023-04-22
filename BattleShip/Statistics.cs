@@ -8,7 +8,7 @@ namespace BattleShip
 {
     public class Statistics
     {
-        public int TotalShots { get; set; } = 0;
+        public int TotalShots { get; set; }  = 0;
         public int MissedShots { get; set; } = 0;
         public int TotalDecs { get; set; } = 0;
         public int TotalShips { get; set; } = 0;

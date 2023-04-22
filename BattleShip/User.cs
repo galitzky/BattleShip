@@ -106,14 +106,11 @@ namespace BattleShip
                     shootInitiator.Statistics.InjuredEnemyDecs++;
                     shootTarget.Statistics.InjuredMyDecs++;
 
-                    Water? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell.Cell?.X == x && waterCell.Cell?.Y == y);
+                    Cell? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell.X == x && waterCell.Y == y);
 
                     if (initiatorWaterCell != null)
                     {
-                        if (initiatorWaterCell.Cell != null)
-                        {
-                            initiatorWaterCell.Cell.Status = CellStatus.ShipHit;
-                        }
+                        initiatorWaterCell.Status = CellStatus.ShipHit;
                     }
                 }
                 else // if ship was killed set all water cells as killed in the Shooter's Enemy board
@@ -126,14 +123,11 @@ namespace BattleShip
 
                     foreach (Cell cell in enemyShip.Cells)
                     {
-                        Water? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell?.Cell?.X == cell.X && waterCell?.Cell?.Y == cell.Y);
+                        Cell? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell?.X == cell.X && waterCell?.Y == cell.Y);
 
                         if (initiatorWaterCell != null)
                         {
-                            if (initiatorWaterCell.Cell != null)
-                            {
-                                initiatorWaterCell.Cell.Status = CellStatus.ShipKilled;
-                            }
+                            initiatorWaterCell.Status = CellStatus.ShipKilled;
                         }
                     }
                 }
@@ -142,24 +136,18 @@ namespace BattleShip
             {
                 shootInitiator.Statistics.MissedShots++;
 
-                Water? targerWaterCell = shootTarget.ActiveBoard.Water.FirstOrDefault(waterCell => waterCell.Cell?.X == x && waterCell.Cell?.Y == y);
+                Cell? targerWaterCell = shootTarget.ActiveBoard.Water.FirstOrDefault(waterCell => waterCell.X == x && waterCell.Y == y);
 
                 if (targerWaterCell != null)
                 {
-                    if (targerWaterCell.Cell != null)
-                    {
-                        targerWaterCell.Cell.Status = CellStatus.WaterHit;
-                    }
+                    targerWaterCell.Status = CellStatus.WaterHit;
                 }
 
-                Water? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell.Cell?.X == x && waterCell.Cell?.Y == y);
+                Cell? initiatorWaterCell = shootInitiator.EnemyBoard.Water.FirstOrDefault(waterCell => waterCell.X == x && waterCell.Y == y);
 
                 if (initiatorWaterCell != null)
                 {
-                    if (initiatorWaterCell.Cell != null)
-                    {
-                        initiatorWaterCell.Cell.Status = CellStatus.WaterHit;
-                    }
+                    initiatorWaterCell.Status = CellStatus.WaterHit;
                 }
             }
 

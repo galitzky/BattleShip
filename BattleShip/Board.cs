@@ -10,13 +10,13 @@ namespace BattleShip
     {
         // data members
         public List<Ship> Ships = new List<Ship>();
-        public List<Water> Water = new List<Water>();
+        public List<Cell> Water = new List<Cell>();
 
         public int X;
         public int Y;
 
-        public string Injured = "Injur";
-        public string Sanked = "Sank";
+        public string Injured = "Injured";
+        public string Sanked = "Sanked";
         public string Missed = "Missed";
         public string Waves = "~";
 
@@ -90,24 +90,24 @@ namespace BattleShip
                        
                         if(found == false)
                         {
-                            Water? waterCell = Water.FirstOrDefault(obj => obj.Cell?.X == i && obj.Cell?.Y == j);
+                            Cell? waterCell = Water.FirstOrDefault(obj => obj.X == i && obj.Y == j);
 
                             if(waterCell == null)
                             {
-                                waterCell = new Water(i, j);
+                                waterCell = new Cell(i,j);
                                 Water.Add(waterCell);
                             }
 
-                            if(waterCell.Cell?.Status == CellStatus.WaterHit)
+                            if(waterCell.Status == CellStatus.WaterHit)
                             {
                                 Console.Write("{0} {1}", Missed, '\t');
                             }
 
-                            else if (waterCell.Cell?.Status == CellStatus.ShipHit)
+                            else if (waterCell.Status == CellStatus.ShipHit)
                             {
                                 Console.Write("{0} {1}", Injured, '\t');
                             }
-                            else if (waterCell.Cell?.Status == CellStatus.ShipKilled)
+                            else if (waterCell.Status == CellStatus.ShipKilled)
                             {
                                 Console.Write("{0} {1}", Sanked, '\t');
                             }

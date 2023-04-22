@@ -8,18 +8,22 @@ namespace BattleShip
 {
     public enum CellStatus
     {
-        Alive,
-        WaterHit,
-        ShipHit,
-        ShipKilled,
+        Alive = 0,
+        WaterHit = 1,
+        ShipHit = 2,
+        ShipKilled = 3,
     }
     public class Cell
     {
+        // data members
         public int X;
         public int Y;
         public CellStatus Status = CellStatus.Alive;
 
-        public Cell() { }
+        // constructors
+        public Cell()
+        {
+        }
 
         public Cell(int x, int y)
         {
@@ -27,5 +31,7 @@ namespace BattleShip
             Y = y;
             Status = CellStatus.Alive;
         }
+
+        // methods
     }
 }
