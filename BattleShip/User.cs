@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BattleShip
 {
@@ -16,7 +18,6 @@ namespace BattleShip
         public Board EnemyBoard = new Board();
 
         public Statistics Statistics = new Statistics();
-
         public User(string name)
         {
             Name = name;
@@ -70,7 +71,7 @@ namespace BattleShip
 
                     ActiveBoard.CreateShip(name, isVertical, x, y, cells);
                 }
-            }
+            }            
             else
             {
                 ActiveBoard.CreateShip("Avrora", false, 2, 3, 3);
@@ -81,7 +82,9 @@ namespace BattleShip
                 ActiveBoard.CreateShip("Lenin", false, 5, 6, 4);
                 ActiveBoard.CreateShip("Nin", true, 5, 10, 4);
             }
+
         }
+
 
         // methods
         public Ship? Shoot(int x, int y, User shootTarget, User shootInitiator)

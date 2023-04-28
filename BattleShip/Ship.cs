@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleShip
 {
-   
+
     public class Ship
     {
         // data members
@@ -15,7 +15,7 @@ namespace BattleShip
         public bool Alive = true;
 
         // methods
-       
+
         public bool IsKilled()
         {
             bool shipKilled = false;
