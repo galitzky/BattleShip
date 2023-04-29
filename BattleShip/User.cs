@@ -69,18 +69,18 @@ namespace BattleShip
                         continue;
                     }
 
-                    ActiveBoard.CreateShip(name, isVertical, x, y, cells);
+                    bool shipCewated = ActiveBoard.CreateShip(name, isVertical, x, y, cells);
                 }
             }            
             else
             {
-                ActiveBoard.CreateShip("Avrora", false, 2, 3, 3);
+                ActiveBoard.CreateShip("HAvrora", false, 2, 3, 3);
                 ActiveBoard.CreateShip("Varyag", true, 1, 1, 2);
-                ActiveBoard.CreateShip("Missouri", true, 5, 5, 4);
-                ActiveBoard.CreateShip("Argo", true, 7, 7, 2);
-                ActiveBoard.CreateShip("Bismarck", true, 7, 1, 4);
-                ActiveBoard.CreateShip("Lenin", false, 5, 6, 4);
-                ActiveBoard.CreateShip("Nin", true, 5, 10, 4);
+                ActiveBoard.CreateShip("VMissouri", true, 5, 5, 4);
+                ActiveBoard.CreateShip("VArgo", true, 7, 7, 2);
+                ActiveBoard.CreateShip("VBismarck", true, 7, 1, 4);
+                ActiveBoard.CreateShip("HLenin", false, 5, 6, 4);
+                ActiveBoard.CreateShip("VNin", true, 5, 10, 4);
             }
 
         }

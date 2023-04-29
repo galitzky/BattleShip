@@ -157,7 +157,8 @@ namespace BattleShip
                 if (forbdCell != null)
                 {
                     //we can't put our cell ship in that coordinate due  to another existing cell in BlockedCells
-                    return false;
+                    Console.WriteLine("We can't put {0}'s cell {1},{2}  due  to another ship existing there", name, cell.X, cell.Y);
+                    //return false;
                 }
                 Cell centralCell = new Cell();
                 centralCell.X = cell.X;
@@ -169,76 +170,90 @@ namespace BattleShip
 
                     Cell surroundBottomLeftCell = new Cell();
                     surroundBottomLeftCell.X = cell.X-1;
-                    surroundBottomLeftCell.Y = cell.Y-1;
+                    surroundBottomLeftCell.Y = cell.Y+1;
                     BlockedCells.Add(surroundBottomLeftCell);
+                    Console.WriteLine("Added surround Bottom Left Cell {0},{1} to Blocked Cells", cell.X-1, cell.Y+1);
 
                     Cell surroundLeftCell = new Cell();
                     surroundLeftCell.X = cell.X - 1;
                     surroundLeftCell.Y = cell.Y;
                     BlockedCells.Add(surroundLeftCell);
+                    Console.WriteLine("Added surround Left Cell {0},{1} to Blocked Cells", cell.X-1, cell.Y);
 
                     Cell surroundUpperLeftCell = new Cell();
                     surroundUpperLeftCell.X = cell.X - 1;
-                    surroundUpperLeftCell.Y = cell.Y+1;
+                    surroundUpperLeftCell.Y = cell.Y-1;
                     BlockedCells.Add(surroundUpperLeftCell);
+                    Console.WriteLine("Added surround Upper Left Cell {0},{1} to Blocked Cells", cell.X-1, cell.Y-1);
 
                     Cell surroundUpperCell = new Cell();
                     surroundUpperCell.X = cell.X;
-                    surroundUpperCell.Y = cell.Y + 1;
+                    surroundUpperCell.Y = cell.Y - 1;
                     BlockedCells.Add(surroundUpperCell);
+                    Console.WriteLine("Added surround Upper Cell {0},{1} to Blocked Cells", cell.X, cell.Y-1);
 
                     Cell surroundUpperRightCell = new Cell();
                     surroundUpperRightCell.X = cell.X + 1;
-                    surroundUpperRightCell.Y = cell.Y + 1;
+                    surroundUpperRightCell.Y = cell.Y - 1;
                     BlockedCells.Add(surroundUpperRightCell);
+                    Console.WriteLine("Added surround Upper Right Cell {0},{1} to Blocked Cells", cell.X+1, cell.Y-1);
 
                     Cell surroundRightCell = new Cell();
                     surroundRightCell.X = cell.X + 1;
                     surroundRightCell.Y = cell.Y;
                     BlockedCells.Add(surroundRightCell);
+                    Console.WriteLine("Added surround Right Cell {0},{1} to Blocked Cells", cell.X+1, cell.Y);
 
                     Cell surroundBottomRightCell = new Cell();
                     surroundBottomRightCell.X = cell.X + 1;
-                    surroundBottomRightCell.Y = cell.Y - 1;
+                    surroundBottomRightCell.Y = cell.Y + 1;
                     BlockedCells.Add(surroundBottomRightCell);
+                    Console.WriteLine("Added surround Bottom Right Cell {0},{1} to Blocked Cells", cell.X+1, cell.Y+1);
 
                 }
                 else
                 {
                     Cell surroundBottomLeftCell = new Cell();
                     surroundBottomLeftCell.X = cell.X - 1;
-                    surroundBottomLeftCell.Y = cell.Y - 1;
+                    surroundBottomLeftCell.Y = cell.Y + 1;
                     BlockedCells.Add(surroundBottomLeftCell);
+                    Console.WriteLine("Added surround Bottom Left Cell {0},{1} to Blocked Cells", cell.X-1, cell.Y+1);
 
                     Cell surroundLeftCell = new Cell();
                     surroundLeftCell.X = cell.X - 1;
                     surroundLeftCell.Y = cell.Y;
                     BlockedCells.Add(surroundLeftCell);
+                    Console.WriteLine("Added surround Left Cell {0},{1} to Blocked Cells", cell.X-1, cell.Y);
 
                     Cell surroundUpperLeftCell = new Cell();
                     surroundUpperLeftCell.X = cell.X - 1;
-                    surroundUpperLeftCell.Y = cell.Y + 1;
+                    surroundUpperLeftCell.Y = cell.Y - 1;
                     BlockedCells.Add(surroundUpperLeftCell);
+                    Console.WriteLine("Added surround Upper Left Cell {0},{1} to Blocked Cells", cell.X-1, cell.Y-1);
 
                     Cell surroundUpperCell = new Cell();
                     surroundUpperCell.X = cell.X;
-                    surroundUpperCell.Y = cell.Y + 1;
+                    surroundUpperCell.Y = cell.Y - 1;
                     BlockedCells.Add(surroundUpperCell);
+                    Console.WriteLine("Added surround Upper Cell {0},{1} to Blocked Cells", cell.X, cell.Y-1);
 
                     Cell surroundUpperRightCell = new Cell();
                     surroundUpperRightCell.X = cell.X + 1;
-                    surroundUpperRightCell.Y = cell.Y + 1;
+                    surroundUpperRightCell.Y = cell.Y - 1;
                     BlockedCells.Add(surroundUpperRightCell);
+                    Console.WriteLine("Added surround Upper Right Cell {0},{1} to Blocked Cells", cell.X+1, cell.Y-1);
 
                     Cell surroundBottomRightCell = new Cell();
                     surroundBottomRightCell.X = cell.X + 1;
-                    surroundBottomRightCell.Y = cell.Y - 1;
+                    surroundBottomRightCell.Y = cell.Y + 1;
                     BlockedCells.Add(surroundBottomRightCell);
+                    Console.WriteLine("Added surround Upper Right Cell {0},{1} to Blocked Cells", cell.X+1, cell.Y+1);
 
                     Cell surroundBottomCell = new Cell();
                     surroundBottomCell.X = cell.X;
-                    surroundBottomCell.Y = cell.Y - 1;
+                    surroundBottomCell.Y = cell.Y + 1;
                     BlockedCells.Add(surroundBottomCell);
+                    Console.WriteLine("Added surround Bottom Cell {0},{1} to Blocked Cells", cell.X, cell.Y+1);
                 }
                 // check if cell is presenting in forbiden cells
                 // if not
@@ -249,41 +264,46 @@ namespace BattleShip
                     {
                         Cell surroundBottomRightCell = new Cell();
                         surroundBottomRightCell.X = cell.X + 1;
-                        surroundBottomRightCell.Y = cell.Y - 1;
+                        surroundBottomRightCell.Y = cell.Y + 1;
                         BlockedCells.Add(surroundBottomRightCell);
+                        Console.WriteLine("Added surround Bottom Right Cell {0},{1} to Blocked Cells", cell.X+1, cell.Y+1);
 
                         Cell surroundBottomCell = new Cell();
                         surroundBottomCell.X = cell.X;
-                        surroundBottomCell.Y = cell.Y - 1;
+                        surroundBottomCell.Y = cell.Y + 1;
                         BlockedCells.Add(surroundBottomCell);
+                        Console.WriteLine("Added surround Bottom Cell {0},{1} to Blocked Cells", cell.X, cell.Y+1);
 
                         Cell surroundBottomLeftCell = new Cell();
                         surroundBottomLeftCell.X = cell.X - 1;
-                        surroundBottomLeftCell.Y = cell.Y - 1;
+                        surroundBottomLeftCell.Y = cell.Y + 1;
                         BlockedCells.Add(surroundBottomLeftCell);
+                        Console.WriteLine("Added surround Bottom Left Cell {0},{1} to Blocked Cells", cell.X-1, cell.Y+1);
                     }
                     else
                     {
                         Cell surroundUpperRightCell = new Cell();
                         surroundUpperRightCell.X = cell.X + 1;
-                        surroundUpperRightCell.Y = cell.Y + 1;
+                        surroundUpperRightCell.Y = cell.Y - 1;
                         BlockedCells.Add(surroundUpperRightCell);
+                        Console.WriteLine("Added surround Bottom Left Cell {0},{1} to Blocked Cells", cell.X+1, cell.Y-1);
 
                         Cell surroundRightCell = new Cell();
                         surroundRightCell.X = cell.X + 1;
                         surroundRightCell.Y = cell.Y;
                         BlockedCells.Add(surroundRightCell);
+                        Console.WriteLine("Added surround Right {0},{1} to Blocked Cells", cell.X+1, cell.Y);
 
                         Cell surroundBottomRightCell = new Cell();
                         surroundBottomRightCell.X = cell.X + 1;
-                        surroundBottomRightCell.Y = cell.Y - 1;
+                        surroundBottomRightCell.Y = cell.Y + 1;
                         BlockedCells.Add(surroundBottomRightCell);
+                        Console.WriteLine("Added surround Bottom Right Cell {0},{1} to Blocked Cells", cell.X+1, cell.Y+1);
                     }
                 }
 
                 ship.Cells.Add(cell);
             }
-            
 
             Ships.Add(ship);
             return true;

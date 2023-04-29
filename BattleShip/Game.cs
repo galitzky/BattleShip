@@ -13,7 +13,7 @@ namespace BattleShip
         User? User1 = null;
         User? User2 = null;
 
-        bool debugMode = true;
+        bool debugMode = false;
 
         // methods
         public void StartGame(int axisX, int axisY)
