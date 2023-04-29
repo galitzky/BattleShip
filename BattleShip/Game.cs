@@ -83,7 +83,7 @@ namespace BattleShip
                     continue;
                 }
 
-                Ship? ship = activeUser?.Shoot(shootY, shootX, notActiveUser, activeUser);
+                Ship? ship = activeUser?.Shoot(shootX, shootY, notActiveUser, activeUser);
 
                 if (ship == null)
                 {
